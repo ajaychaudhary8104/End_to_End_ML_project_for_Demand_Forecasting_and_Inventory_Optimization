@@ -42,3 +42,15 @@ data_preprocessing:
   optimize_memory: true
 
   save_format: parquet  
+
+feature_engineering:
+
+  root_dir: artifacts/feature_engineering
+
+  input_data_path: artifacts/data_preprocessing/preprocessed_sales.parquet
+
+  output_data_path: artifacts/feature_engineering/featured_data.parquet
+
+  feature_report_path: artifacts/feature_engineering/feature_report.json 
+
+  original_feature_count: 32 

@@ -42,3 +42,11 @@ class DataPreprocessingConfig:
     categorical_imputation_method: str
     optimize_memory: bool
     save_format: str    
+
+@dataclass(frozen=True)
+class FeatureEngineeringConfig:
+    root_dir: Path
+    input_data_path: Path
+    output_data_path: Path
+    feature_report_path: Path
+    original_feature_count: int    

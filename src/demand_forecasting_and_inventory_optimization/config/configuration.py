@@ -2,7 +2,8 @@ from src.demand_forecasting_and_inventory_optimization.constants import *
 from src.demand_forecasting_and_inventory_optimization.utils.common import read_yaml, create_directories
 from src.demand_forecasting_and_inventory_optimization.entity.config_entity import (DataIngestionConfig , 
                                                                                     DataValidationConfig,
-                                                                                    DataPreprocessingConfig)
+                                                                                    DataPreprocessingConfig,
+                                                                                    FeatureEngineeringConfig)
 
 
 class ConfigurationManager:
@@ -133,3 +134,26 @@ class ConfigurationManager:
             config.save_format
         ) 
         return data_preprocessing_config
+    
+    
+    def get_feature_engineering_config(self) -> FeatureEngineeringConfig:
+
+        config = self.config.feature_engineering
+
+        create_directories(
+            [config.root_dir]
+        )
+
+        feature_engineering_config = FeatureEngineeringConfig(
+
+            root_dir=Path(config.root_dir),
+
+            input_data_path=Path(config.input_data_path),
+
+            output_data_path=Path(config.output_data_path),
+
+            feature_report_path=Path(config.feature_report_path),
+            original_feature_count=config.original_feature_count
+        )    
+
+        return feature_engineering_config
