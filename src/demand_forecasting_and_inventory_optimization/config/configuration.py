@@ -1,6 +1,7 @@
 from src.demand_forecasting_and_inventory_optimization.constants import *
 from src.demand_forecasting_and_inventory_optimization.utils.common import read_yaml, create_directories
-from src.demand_forecasting_and_inventory_optimization.entity.config_entity import DataIngestionConfig
+from src.demand_forecasting_and_inventory_optimization.entity.config_entity import (DataIngestionConfig , 
+                                                                                    DataValidationConfig)
 
 
 class ConfigurationManager:
@@ -27,3 +28,50 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+    
+    def get_data_validation_config(self) -> DataValidationConfig:
+
+        config = self.config.data_validation
+
+        schema = self.schema
+
+        create_directories(
+            [config.root_dir]
+        )
+
+        validation_config = (DataValidationConfig(
+                root_dir=Path(config.root_dir),
+
+                unzip_data_dir=Path(config.unzip_data_dir),
+
+                STATUS_FILE=Path(config.STATUS_FILE),
+
+                REPORT_FILE=Path(config.REPORT_FILE),
+
+                DRIFT_REPORT_FILE=Path(config.DRIFT_REPORT_FILE),
+
+                STATS_REPORT_FILE=Path(config.STATS_REPORT_FILE),
+
+                all_schema=schema.COLUMNS,
+
+                numerical_ranges=schema.NUMERICAL_RANGES,
+
+                categorical_values=schema.CATEGORICAL_VALUES,
+
+                thresholds=schema.THRESHOLDS,
+
+                high_cardinality_columns=
+                schema.HIGH_CARDINALITY_COLUMNS,
+
+                leakage_columns=
+                schema.LEAKAGE_COLUMNS,
+
+                timestamp_column=
+                schema.TIMESTAMP_COLUMN,
+
+                target_column=
+                schema.TARGET_COLUMN
+            )
+        )
+
+        return validation_config

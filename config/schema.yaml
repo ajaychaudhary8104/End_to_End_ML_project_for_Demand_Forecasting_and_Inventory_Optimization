@@ -1,1 +1,222 @@
-key: value
+COLUMNS:
+
+  date: datetime64[ns]
+
+  year: int32
+  month: int32
+  week: int32
+  dayofweek: int32
+  is_weekend: int32
+
+  product_id: int64
+  category: object
+  supplier_id: int32
+
+  unit_cost: float64
+  margin_pct: float64
+  unit_price: float64
+
+  store_id: int64
+  region: object
+  store_size_sqft: int32
+  store_type: object
+
+  temperature: float64
+  rainfall: float64
+  humidity: float64
+
+  base_demand: float64
+
+  units_sold: int32
+  revenue: float64
+
+  stock_on_hand: int32
+  stock_in_transit: int32
+  backorder_qty: int32
+
+  discount_pct: float64
+
+  supplier_rating: float64
+  avg_lead_time: int32
+  lead_time_std: int32
+
+  inflation_rate: float64
+  fuel_price: float64
+  consumer_index: float64
+
+TARGET_COLUMN: units_sold
+
+NUMERICAL_RANGES:
+
+  year:
+    min: 2022
+    max: 2023
+
+  month:
+    min: 1
+    max: 12
+
+  week:
+    min: 1
+    max: 53
+
+  dayofweek:
+    min: 0
+    max: 6
+
+  is_weekend:
+    min: 0
+    max: 1
+
+  product_id:
+    min: 1
+    max: 100
+
+  supplier_id:
+    min: 1
+    max: 10
+
+  store_id:
+    min: 1
+    max: 10
+
+  unit_cost:
+    min: 10
+    max: 500
+
+  margin_pct:
+    min: 0.20
+    max: 0.50
+
+  unit_price:
+    min: 10
+    max: 1000
+
+  store_size_sqft:
+    min: 1000
+    max: 15000
+
+  temperature:
+    min: -20
+    max: 60
+
+  rainfall:
+    min: 0
+    max: 100
+
+  humidity:
+    min: 0
+    max: 100
+
+  base_demand:
+    min: 20
+    max: 100
+
+  units_sold:
+    min: 0
+    max: 1000
+
+  revenue:
+    min: 0
+    max: 1000000
+
+  stock_on_hand:
+    min: 100
+    max: 2000
+
+  stock_in_transit:
+    min: 0
+    max: 500
+
+  backorder_qty:
+    min: 0
+    max: 20
+
+  discount_pct:
+    min: 0
+    max: 30
+
+  supplier_rating:
+    min: 3.5
+    max: 5.0
+
+  avg_lead_time:
+    min: 3
+    max: 20
+
+  lead_time_std:
+    min: 1
+    max: 5
+
+  inflation_rate:
+    min: 0
+    max: 10
+
+  fuel_price:
+    min: 50
+    max: 150
+
+  consumer_index:
+    min: 50
+    max: 150
+
+CATEGORICAL_VALUES:
+
+  category:
+    - Electronics
+    - Groceries
+    - Fashion
+    - Home
+    - Sports
+
+  region:
+    - North
+    - South
+    - East
+    - West
+
+  store_type:
+    - Hypermarket
+    - Supermarket
+    - Convenience
+
+THRESHOLDS:
+
+  missing_value_threshold: 0.30
+  correlation_threshold: 0.95
+  drift_pvalue_threshold: 0.05
+  max_duplicate_percentage: 0.01
+
+HIGH_CARDINALITY_COLUMNS:
+
+  - product_id
+  - store_id
+
+BUSINESS_RULES:
+
+  units_sold_non_negative: true
+
+  revenue_consistency: true
+
+  stock_on_hand_non_negative: true
+
+  stock_in_transit_non_negative: true
+
+  backorder_qty_non_negative: true
+
+  supplier_rating_valid: true
+
+  lead_time_positive: true
+
+  discount_pct_valid: true
+
+LEAKAGE_COLUMNS:
+
+  - future_units_sold
+  - future_revenue
+  - future_inventory
+  - next_day_sales
+  - next_week_sales
+  - next_month_sales
+
+TIMESTAMP_COLUMN: date
