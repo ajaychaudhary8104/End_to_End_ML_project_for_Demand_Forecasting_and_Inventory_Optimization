@@ -20,3 +20,25 @@ data_validation:
   STATS_REPORT_FILE: artifacts/data_validation/dataset_statistics.json
 
   DRIFT_REPORT_FILE: artifacts/data_validation/drift_report.json
+
+data_preprocessing:
+
+  root_dir: artifacts/data_preprocessing
+
+  input_data_path: artifacts/data_ingestion/data/raw
+
+  output_data_path: artifacts/data_preprocessing/preprocessed_sales.parquet
+
+  preprocessing_report_path: artifacts/data_preprocessing/preprocessing_report.json
+
+  outlier_method: iqr
+
+  outlier_iqr_multiplier: 1.5
+
+  numerical_imputation_method: median
+
+  categorical_imputation_method: mode
+
+  optimize_memory: true
+
+  save_format: parquet  

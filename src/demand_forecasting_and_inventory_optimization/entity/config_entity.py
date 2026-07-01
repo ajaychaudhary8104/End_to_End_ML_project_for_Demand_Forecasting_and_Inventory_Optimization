@@ -26,3 +26,19 @@ class DataValidationConfig:
     leakage_columns: list
     timestamp_column: str
     target_column: str
+
+@dataclass(frozen=True)
+class DataPreprocessingConfig:
+    root_dir: Path
+    input_data_path: Path
+    output_data_path: Path
+    preprocessing_report_path: Path
+    target_column: str
+    timestamp_column: str
+    numerical_ranges: dict
+    outlier_method: str 
+    outlier_iqr_multiplier: float
+    numerical_imputation_method: str
+    categorical_imputation_method: str
+    optimize_memory: bool
+    save_format: str    

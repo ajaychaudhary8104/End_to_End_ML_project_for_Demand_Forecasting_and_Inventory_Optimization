@@ -13,7 +13,7 @@ class DataValidation:
 
         self.config = config
 
-        self.data = self.create_merged_dataframe()
+        self.data = self.create_merged_dataframe_and_save()
 
         self.validation_report = {}
 
@@ -29,7 +29,7 @@ class DataValidation:
     # =====================================================
     # CREATE MASTER DATAFRAME
     # =====================================================
-    def create_merged_dataframe(self) -> pd.DataFrame:
+    def create_merged_dataframe_and_save(self) -> pd.DataFrame:
         data_dir = self.config.unzip_data_dir
         sales_df = pd.read_parquet(os.path.join(data_dir, 'sales.parquet'))
         inventory_df = pd.read_parquet(os.path.join(data_dir, 'inventory.parquet'))
@@ -76,6 +76,12 @@ class DataValidation:
 
         # Fill missing promotions
         master_df["discount_pct"] = master_df["discount_pct"].fillna(0)
+        
+        logger.info("saving merged dataframe to parquet file")
+        master_df.to_parquet(
+            os.path.join(self.config.unzip_data_dir, "master.parquet"),
+            index=False
+        )
         return master_df
     
     # =====================================================
